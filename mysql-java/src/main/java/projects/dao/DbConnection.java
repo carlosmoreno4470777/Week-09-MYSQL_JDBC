@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import projects.exception.DbExeception;
+import projects.exception.DbException;
 
 public class DbConnection {
 
@@ -28,7 +28,7 @@ public class DbConnection {
 			
 		} catch (SQLException e) {
 			System.out.println("Unable to get connection at: " + url);
-			throw new DbExeception(e);
+			throw new DbException(e);
 		}
 		
 		
