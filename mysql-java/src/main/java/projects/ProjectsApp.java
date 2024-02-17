@@ -12,15 +12,15 @@ import projects.service.ProjectService;
 public class ProjectsApp {
 
 	  private ProjectService projectService = new ProjectService();
-
-	
+	  
 	/*
 	 * To prevent the Eclipse formatter from reformatting the list, surround the variable declaration with
 	 * // @formatter:off and // @formatter:on 
-	 * This list of operations will be printed on the console so that the user will be reminded which selection to make
+	 * This list of operations will be printed on the console so that 
+	 * the user will be reminded which selection to make
 	 */
-	
-	  /* This is the list of available operations */
+	  
+	  /*  This is the list of available operations which are selected by the user  */
 	// @formatter: off
 	private List<String> operations = List.of( 
 			"1) Add a project"
@@ -32,15 +32,19 @@ public class ProjectsApp {
  */
 	private Scanner scanner = new Scanner(System.in);
 	
-	
 	public static void main(String[] args) {
 
+		/*
+		 * call the method that processes the menu. In the main() method, 
+		 * create a new ProjectsApp object and call the method
+		 */
 		new ProjectsApp().processUserSelections();
 		
 	}// end of main
 
 /*
- * This method displays the menu selections, gets a selection from the user, and then acts on the selection
+ * This method displays the menu selections, gets a selection from the user, 
+ * and then acts on the selection
  */
 
 	private void processUserSelections() {
@@ -60,7 +64,7 @@ public class ProjectsApp {
 			            break;
 /*
 			          case 2:
-			            addRecipe();
+			            addProject();
 			            break;
 */
 
@@ -76,6 +80,51 @@ public class ProjectsApp {
 		}//end of while 
 		
 	}
+	
+	
+	private int getUserSelection() {
+		
+		printOperations();
+		Integer input = getIntInput("Enter a menu selection");
+	    return Objects.isNull(input) ? -1 : input;
+
+	}
+	
+	/**
+	   * Print the available menu operations to the console, with each operation on
+	   * a separate line.
+	   */	
+	private void printOperations() {
+	    System.out.println();
+	    System.out.println("Here's what you can do:");
+
+	    //Print our operations
+	    operations.forEach(op -> System.out.println("   " + op));		
+	}// end of processUserSelections
+	
+	
+	  private Integer getIntInput(String prompt) {
+		    String input = getStringInput(prompt);
+		    //if the input is a null we handle it
+		    if (Objects.isNull(input)) {
+		      return null;
+		    }
+		    
+		    try {
+		    	//if the input is not null and convert to integer
+		      return Integer.parseInt(input);
+		    } catch (NumberFormatException e) {
+		      throw new DbException(input + " is not a valid number.");
+		    }
+	}
+
+	private String getStringInput(String prompt) {
+		System.out.print(prompt + ": ");
+		String input = scanner.nextLine();
+		
+		return input.isBlank() ? null: input.trim(); 
+	}
+	
 
 		  private void createProject() {
 			  
@@ -131,57 +180,12 @@ public class ProjectsApp {
 		    return true;
 		  }
 
-	private int getUserSelection() {
-		
-		printOperations();
-		Integer input = getIntInput("Enter a menu selection");
-	    return Objects.isNull(input) ? -1 : input;
 
-	}
 
 	
-	  private Integer getIntInput(String prompt) {
-		    String input = getStringInput(prompt);
-		    //if the input is a null we handle it
-		    if (Objects.isNull(input)) {
-		      return null;
-		    }
-		    
-		    try {
-		    	//if the input is not null and convert to integer
-		      return Integer.parseInt(input);
-		    } catch (NumberFormatException e) {
-		      throw new DbException(input + " is not a valid number.");
-		    }
-	}
 
-	private String getStringInput(String prompt) {
-		System.out.print(prompt + ": ");
-		String input = scanner.nextLine();
-		
-		return input.isBlank() ? null: input.trim(); 
-	}
 
-	/**
-	   * Print the available menu operations to the console, with each operation on
-	   * a separate line.
-	   */	
-	private void printOperations() {
-	    System.out.println();
-	    System.out.println("Here's what you can do:");
 
-	    /*
-	     * Every List has a forEach method. The forEach method takes a Consumer as a
-	     * parameter. This uses a Lambda expression to supply the Consumer. Consumer
-	     * is a functional interface that has a single abstract method accept. The
-	     * accept method returns nothing (void) and accepts a single parameter. This
-	     * Lambda expression returns nothing (System.out.println has a void return
-	     * value). It has a single parameter (op), which meets the requirements of
-	     * Consumer.accept().
-	     */
-	    //Print our operations
-	    operations.forEach(op -> System.out.println("   " + op));		
-	}// end of processUserSelections
 	
 	
 

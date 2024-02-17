@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalTime;
-import java.util.List;
+//import java.sql.Statement;
+//import java.time.LocalTime;
+//import java.util.List;
 
 import projects.entity.Project;
 import projects.exception.DbException;
@@ -14,12 +14,11 @@ import provided.util.DaoBase;
 
 public class ProjectDao extends DaoBase {
 	
-	private static final String CATEGORY_TABLE = "category";
-	private static final String MATERIAL_TABLE = "material"; 
+	//private static final String CATEGORY_TABLE = "category";
+	//private static final String MATERIAL_TABLE = "material"; 
 	private static final String PROJECT_TABLE = "project";
-	private static final String PROJECT_CATEGORY_TABLE = "project_category"; 
-	private static final String STEP_TABLE = "step";
-
+	//private static final String PROJECT_CATEGORY_TABLE = "project_category"; 
+	//private static final String STEP_TABLE = "step";
 
 	  /**
 	   * Insert a Project into the recipe table. This uses a
@@ -65,7 +64,7 @@ public class ProjectDao extends DaoBase {
 	         * Call a method in the base class to get the last insert ID (primary
 	         * key value) in the given table.
 	         */
-	        Integer recipeId = getLastInsertId(conn, PROJECT_TABLE);
+	        Integer projectId = getLastInsertId(conn, PROJECT_TABLE);
 
 	        commitTransaction(conn);
 
@@ -74,7 +73,7 @@ public class ProjectDao extends DaoBase {
 	         * getLastInsertId(). This does not fill in the createdAt field. To get
 	         * that value we would need to do a fetch on the recipe row.
 	         */
-	        project.setProjectId(recipeId);
+	        project.setProjectId(projectId);
 	        return project;
 	      } catch (Exception e) {
 	        rollbackTransaction(conn);
